@@ -1,0 +1,44 @@
+{
+  "name": "ai-latex-report-maker",
+  "private": false,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI-powered application to generate professional LaTeX reports with custom formatting, cover pages, and styles",
+  "main": "dist/index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/ai-latex-report-maker.git"
+  },
+  "keywords": [
+    "ai",
+    "latex",
+    "report-generator",
+    "gemini",
+    "typescript",
+    "react",
+    "vite"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-username/ai-latex-report-maker/issues"
+  },
+  "homepage": "https://github.com/your-username/ai-latex-report-maker#readme",
+  "dependencies": {
+    "react-dom": "18.2.0",
+    "react": "18.2.0",
+    "@google/genai": "^0.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
