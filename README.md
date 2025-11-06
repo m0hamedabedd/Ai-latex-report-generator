@@ -32,7 +32,7 @@ AI-powered application to generate professional LaTeX reports with custom format
 
 Try the application: 
 - [AI Studio App](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
-- [Netlify Deploy](https://astounding-mousse-9d91d3.netlify.app)
+- [Netlify Deploy - AI LaTeX Report Maker](https://astounding-mousse-9d91d3.netlify.app)
 
 ## 📋 Prerequisites
 
