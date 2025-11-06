@@ -1,18 +1,4 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
-# AI LaTeX Report Maker
-
-<div align="center">
-
-[![AI Studio App](https://img.shields.io/badge/AI%20Studio-View%20App-blue?logo=google&logoColor=white)](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
-
-</div>
-
+# Ai-latex-report-generator
 AI-powered application to generate professional LaTeX reports with custom formatting, cover pages, and styles. The app uses Google's Gemini API to create high-quality LaTeX documents based on user input.
 
 **Created by [m0hamedabed](https://github.com/m0hamedabed)**
