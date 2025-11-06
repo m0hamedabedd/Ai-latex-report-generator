@@ -1,6 +1,6 @@
 {
-  "name": "AI LaTeX Report Maker",
-  "description": "Generate professional reports in LaTeX format by simply describing your topic. Provide optional author details and let the AI create a complete .tex file ready for compilation.",
+  "name": "AI Report Studio",
+  "description": "Generate polished reports with AI: share your topic, adjust the tone, and download a ready-to-share PDF or editable source.",
   "requestFramePermissions": [],
   "prompt": ""
 }

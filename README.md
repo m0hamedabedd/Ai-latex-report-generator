@@ -30,7 +30,9 @@ AI-powered application to generate professional LaTeX reports with custom format
 
 ## 🚀 Live Demo
 
-Try the application: [AI Studio App](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
+Try the application: 
+- [AI Studio App](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
+- [Netlify Deploy](https://astounding-mousse-9d91d3.netlify.app)
 
 ## 📋 Prerequisites
 
@@ -41,8 +43,8 @@ Try the application: [AI Studio App](https://ai.studio/apps/drive/17lhZwnC8PE4Be
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/m0hamedabed/ai-latex-report-maker.git
-   cd ai-latex-report-maker
+   git clone https://github.com/m0hamedabedd/Ai-latex-report-generator.git
+   cd Ai-latex-report-generator
    ```
 
 2. Install dependencies:
@@ -128,7 +130,7 @@ The application can be deployed to any static hosting service:
 ## 📁 Project Structure
 
 ```
-ai-latex-report-maker/
+Ai-latex-report-generator/
 ├── components/          # React UI components
 ├── contexts/            # React context providers
 ├── services/            # API and utility services
@@ -181,8 +183,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 If you encounter any issues or have feature requests:
 
-1. Check the [Issues](https://github.com/m0hamedabed/ai-latex-report-maker/issues) page
-2. If your issue doesn't already exist, create a [new issue](https://github.com/m0hamedabed/ai-latex-report-maker/issues/new)
+1. Check the [Issues](https://github.com/m0hamedabedd/Ai-latex-report-generator/issues) page
+2. If your issue doesn't already exist, create a [new issue](https://github.com/m0hamedabedd/Ai-latex-report-generator/issues/new)
 3. For quick questions, feel free to reach out via GitHub
 
 ## 🙏 Acknowledgements

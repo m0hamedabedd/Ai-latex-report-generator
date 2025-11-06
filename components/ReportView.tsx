@@ -1,9 +1,9 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import type { UserDetails } from '../types';
 import { generateReport, refineTopic } from '../services/geminiService';
 import { compileLatexToPdf, LatexCompilationError } from '../services/pdfService';
-import { CopyIcon, DownloadIcon, SparklesIcon, WarningIcon, RefreshIcon, DocumentTextIcon, CogIcon, PdfIcon } from './icons';
+import { DownloadIcon, SparklesIcon, WarningIcon, RefreshIcon, DocumentTextIcon, CogIcon, PdfIcon } from './icons';
 import Spinner from './Spinner';
 import { useLanguage } from '../contexts/LanguageContext';
 import ReportSettings from './ReportSettings';
@@ -20,10 +20,15 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
   const [latexCode, setLatexCode] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
   const [isRefining, setIsRefining] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
+  const [previewError, setPreviewError] = useState<string | null>(null);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
+  const compileAbortRef = useRef<AbortController | null>(null);
+  const pdfBlobRef = useRef<Blob | null>(null);
+  const previewUrlRef = useRef<string | null>(null);
 
   const handleGenerate = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +37,18 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
     setIsLoading(true);
     setError(null);
     setLatexCode(null);
+    setPreviewError(null);
+    setPdfPreviewUrl(null);
+    setIsPreviewLoading(false);
+    pdfBlobRef.current = null;
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current);
+      previewUrlRef.current = null;
+    }
+    if (compileAbortRef.current) {
+      compileAbortRef.current.abort();
+      compileAbortRef.current = null;
+    }
 
     try {
       const result = await generateReport(userDetails, topic);
@@ -65,24 +82,13 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
     }
   }, [topic, isRefining, isLoading, userDetails, t]);
 
-  const handleCopy = () => {
-    if (!latexCode) return;
-    navigator.clipboard.writeText(latexCode).then(() => {
-      setCopyStatus('copied');
-      setTimeout(() => setCopyStatus('idle'), 2000);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-      setError(t('failedToCopy'));
-    });
-  };
-  
   const handleDownloadTex = () => {
     if (!latexCode) return;
     const blob = new Blob([latexCode], { type: 'application/x-tex' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'report.tex';
+    a.download = 'report-source.tex';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -96,7 +102,8 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
     setError(null);
 
     try {
-        const blob = await compileLatexToPdf(latexCode);
+        const blob = pdfBlobRef.current ?? await compileLatexToPdf(latexCode);
+        pdfBlobRef.current = blob;
         const url = URL.createObjectURL(blob);
         const anchor = document.createElement('a');
         anchor.href = url;
@@ -111,7 +118,7 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
                 console.error('PDF compilation error log:', err.log);
             }
             console.error('Failed to generate PDF:', err);
-            setError(`${t('pdfGenerationError')} ${err.message}`);
+            setError(t('pdfGenerationError'));
         } else {
             console.error('Failed to generate PDF:', err);
             setError(t('pdfGenerationError'));
@@ -120,6 +127,73 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
         setIsGeneratingPdf(false);
     }
   }, [latexCode, isGeneratingPdf, t]);
+
+  useEffect(() => {
+    if (!latexCode) {
+      setPdfPreviewUrl(null);
+      setPreviewError(null);
+      setIsPreviewLoading(false);
+      pdfBlobRef.current = null;
+      compileAbortRef.current?.abort();
+      compileAbortRef.current = null;
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+        previewUrlRef.current = null;
+      }
+      return;
+    }
+
+    const controller = new AbortController();
+    compileAbortRef.current?.abort();
+    compileAbortRef.current = controller;
+    setIsPreviewLoading(true);
+    setPreviewError(null);
+
+    const preparePreview = async () => {
+      try {
+        const blob = await compileLatexToPdf(latexCode, controller.signal);
+        if (controller.signal.aborted) return;
+        pdfBlobRef.current = blob;
+        if (previewUrlRef.current) {
+          URL.revokeObjectURL(previewUrlRef.current);
+        }
+        const nextUrl = URL.createObjectURL(blob);
+        previewUrlRef.current = nextUrl;
+        setPdfPreviewUrl(nextUrl);
+      } catch (err) {
+        if (controller.signal.aborted) return;
+        console.error('Failed to prepare PDF preview:', err);
+        setPreviewError(t('previewErrorGeneric'));
+        pdfBlobRef.current = null;
+        if (previewUrlRef.current) {
+          URL.revokeObjectURL(previewUrlRef.current);
+          previewUrlRef.current = null;
+        }
+        setPdfPreviewUrl(null);
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsPreviewLoading(false);
+          compileAbortRef.current = null;
+        }
+      }
+    };
+
+    preparePreview();
+
+    return () => {
+      controller.abort();
+    };
+  }, [latexCode, t]);
+
+  useEffect(() => {
+    return () => {
+      compileAbortRef.current?.abort();
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+        previewUrlRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="w-full max-w-7xl mx-auto animate-fade-in">
@@ -208,31 +282,55 @@ const ReportView: React.FC<ReportViewProps> = ({ userDetails, setUserDetails, on
                     ) : latexCode ? (
                     <div className="flex flex-col flex-grow">
                         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                        <h3 className="text-lg font-semibold text-slate-900">{t('generatedCodeTitle')}</h3>
-                        <div className="flex items-center space-x-2">
-                            <button onClick={handleCopy} className="flex items-center px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-md text-sm font-medium text-slate-700 transition-colors">
-                            <CopyIcon /> <span className="ms-1.5">{copyStatus === 'copied' ? t('copiedButton') : t('copyButton')}</span>
-                            </button>
-                            <button onClick={handleDownloadTex} className="flex items-center px-3 py-1.5 bg-blue-100 hover:bg-blue-200 rounded-md text-sm font-medium text-blue-700 transition-colors">
-                            <DownloadIcon /> <span className="ms-1.5">{t('downloadTexButton')}</span>
-                            </button>
-                            <button
-                                onClick={handleDownloadPdf}
-                                disabled={isGeneratingPdf}
-                                className="flex items-center px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded-md text-sm font-medium text-white transition-colors disabled:bg-green-400 disabled:cursor-not-allowed"
-                            >
-                                {isGeneratingPdf ? <Spinner /> : <PdfIcon />}
-                                <span className="ms-1.5">{isGeneratingPdf ? t('generatingPdfButton') : t('downloadPdfButton')}</span>
-                            </button>
-                        </div>
+                            <h3 className="text-lg font-semibold text-slate-900">{t('previewTitle')}</h3>
+                            <div className="flex items-center space-x-2">
+                                <button
+                                    onClick={handleDownloadPdf}
+                                    disabled={isGeneratingPdf || isPreviewLoading}
+                                    className="flex items-center px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded-md text-sm font-medium text-white transition-colors disabled:bg-green-400 disabled:cursor-not-allowed"
+                                >
+                                    {isGeneratingPdf ? <Spinner /> : <PdfIcon />}
+                                    <span className="ms-1.5">{isGeneratingPdf ? t('generatingPdfButton') : t('downloadPdfButton')}</span>
+                                </button>
+                                <button
+                                    onClick={handleDownloadTex}
+                                    className="flex items-center px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-md text-sm font-medium text-slate-700 transition-colors"
+                                >
+                                    <DownloadIcon />
+                                    <span className="ms-1.5">{t('downloadSourceButton')}</span>
+                                </button>
+                            </div>
                         </div>
                         <div className="relative flex-grow">
-                        <pre className="absolute inset-0 w-full h-full bg-slate-50 border border-slate-200 rounded-md p-4 text-sm text-slate-700 font-mono overflow-auto" dir="ltr">
-                            <code>{latexCode}</code>
-                        </pre>
+                            {isPreviewLoading ? (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500 bg-slate-50 border border-slate-200 rounded-md">
+                                    <Spinner />
+                                    <p className="mt-4 text-sm max-w-xs text-center">{t('previewLoading')}</p>
+                                </div>
+                            ) : previewError ? (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-red-50 border border-red-200 rounded-md p-6 text-red-600">
+                                    <WarningIcon className="w-6 h-6" />
+                                    <p className="mt-3 text-sm">
+                                        <span className="font-semibold">{t('previewErrorPrefix')}</span>{' '}
+                                        {previewError}
+                                    </p>
+                                    <p className="mt-2 text-xs text-red-500">{t('previewRecovery')}</p>
+                                </div>
+                            ) : pdfPreviewUrl ? (
+                                <iframe
+                                    src={pdfPreviewUrl}
+                                    title={t('previewTitle')}
+                                    className="w-full h-[70vh] border border-slate-200 rounded-md shadow-inner"
+                                />
+                            ) : (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500 bg-slate-50 border border-slate-200 rounded-md">
+                                    <DocumentTextIcon className="w-10 h-10 text-slate-300" />
+                                    <p className="mt-3 text-sm text-center px-6">{t('previewUnavailable')}</p>
+                                </div>
+                            )}
                         </div>
                         <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
-                        <strong>{t('nextStepTitle')}</strong> <span dangerouslySetInnerHTML={{ __html: t('nextStepDesc') }} />
+                            <strong>{t('nextStepTitle')}</strong> <span>{t('nextStepDesc')}</span>
                         </div>
                     </div>
                     ) : (
