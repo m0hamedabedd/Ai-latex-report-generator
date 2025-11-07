@@ -41,7 +41,7 @@ AI LaTeX Report Maker is an innovative web application that leverages Google's G
 
 Try the application in action:
 - [AI Studio App](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
-- [Netlify Deploy - AI LaTeX Report Maker](https://astounding-mousse-9d91d3.netlify.app)
+- [Netlify Deploy - Report Generator](https://astounding-mousse-9d91d3.netlify.app)
 
 ---
 
