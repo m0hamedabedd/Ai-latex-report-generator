@@ -1,6 +1,6 @@
 {
-  "name": "AI Report Studio",
-  "description": "Generate polished reports with AI: share your topic, adjust the tone, and download a ready-to-share PDF or editable source.",
+  "name": "Tasleema",
+  "description": "Tasleema assembles human-ready reports: describe the goal, preview the PDF instantly, and download the editable source when you need it.",
   "requestFramePermissions": [],
   "prompt": ""
 }

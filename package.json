@@ -1,9 +1,9 @@
 {
-  "name": "ai-latex-report-maker",
+  "name": "tasleema",
   "private": false,
   "version": "1.0.0",
   "type": "module",
-  "description": "AI-powered application to generate professional LaTeX reports with custom formatting, cover pages, and styles",
+  "description": "Tasleema is an AI report studio that produces presentation-ready PDFs and editable sources from a single brief.",
   "main": "dist/index.html",
   "scripts": {
     "dev": "vite",
@@ -13,23 +13,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/ai-latex-report-maker.git"
+    "url": "https://github.com/your-username/tasleema.git"
   },
   "keywords": [
     "ai",
-    "latex",
+    "reports",
     "report-generator",
+    "pdf",
+    "tasleema",
     "gemini",
     "typescript",
     "react",
     "vite"
   ],
-  "author": "Your Name",
+  "author": "m0hamedabed",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/your-username/ai-latex-report-maker/issues"
+    "url": "https://github.com/your-username/tasleema/issues"
   },
-  "homepage": "https://github.com/your-username/ai-latex-report-maker#readme",
+  "homepage": "https://github.com/your-username/tasleema#readme",
   "dependencies": {
     "react-dom": "18.2.0",
     "react": "18.2.0",

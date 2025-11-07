@@ -1,288 +1,132 @@
 <div align="center">
-  <img width="1200" height="475" alt="AI LaTeX Report Maker Banner" src="https://i.postimg.cc/TP4bmjXP/Screenshot-2025-11-07-095822.png" />
-  
-  # AI LaTeX Report Maker
+  <img width="900" alt="Tasleema preview" src="https://i.postimg.cc/TP4bmjXP/Screenshot-2025-11-07-095822.png" />
 
-  [![Netlify Deploy](https://img.shields.io/badge/Netlify-Deploy-green?logo=netlify&logoColor=white)](https://dapper-squirrel-0020a6.netlify.app)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
-  [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+  # Tasleema
 
+  **The calmest way to turn a prompt into a presentation-ready report.**
 </div>
 
-<div align="center">
-
-**AI-Powered LaTeX Report Generation Made Simple**
-
-Transform your ideas into professional LaTeX reports with AI assistance.
-
-</div>
+Tasleema is an AI report studio that accepts a short brief, renders a polished PDF preview instantly, and still lets you download the editable source when needed. No LaTeX knowledge, no desktop tooling, and no logins required—just describe the intent, choose the tone, and iterate until it looks right.
 
 ---
 
-## 🌟 Overview
+## Highlights
 
-AI LaTeX Report Maker is an innovative web application that leverages Google's Gemini AI to automatically generate professional LaTeX reports. Simply provide a topic or concept, and the AI creates a structured LaTeX document with customizable formatting, cover pages, and styles.
-
-## 🛠️ How It Works
-
-### 1. Input Your Topic
-- Enter a detailed description or topic for your report
-- The AI will analyze your input to understand the context and requirements
-
-### 2. Customize Your Report
-- **Style Selection**: Choose from Modern, Classic, Minimalist, or Academic styles
-- **Cover Page Options**: Select from Standard, Formal Report, or Full Page formats
-- **Language Preference**: Switch between English and Arabic for multilingual support
-
-### 3. AI-Powered Generation
-- The Google Gemini API processes your input and generates a professional LaTeX document
-- The AI structures the content with proper headings, subheadings, and formatting
-- Custom LaTeX commands and packages are applied based on your style selection
-
-### 4. Review and Export
-- Preview the generated LaTeX code directly in the application
-- Download as a PDF file or as a raw .tex file for further editing
-- All reports are generated serverlessly with high quality and consistency
-
-### ✨ Key Features
-- 🤖 **AI-Powered Generation**: Create professional LaTeX reports with a single topic
-- 🎨 **Multiple Style Options**: Choose from Modern, Classic, Minimalist, or Academic styles
-- 📄 **Customizable Cover Pages**: Select from Standard, Formal Report, or Full Page formats
-- 🌐 **Multi-Language Support**: Available in both English and Arabic
-- 💻 **Built-in LaTeX Generation**: Complete LaTeX code generation with custom formatting
-- 📁 **PDF Compilation**: Option to download as PDF or raw .tex file
-- 📱 **Responsive Design**: Works seamlessly across all device sizes
-- ⚡ **Lightning Fast**: Optimized React application with Vite bundler
-- 🔐 **Secure**: API keys stored in environment variables, never exposed to client
+- **Human-ready home page.** The refreshed hero section introduces Tasleema’s value, showcases live stats, and explains exactly what happens when you click *Start with Tasleema*.
+- **Guided storytelling.** Benefit cards highlight context awareness, layout presets, and the instant preview so new users know what to expect.
+- **Live PDF canvas.** The right column of the hero mirrors the in-app preview card so users immediately understand they’ll see the finished PDF instead of raw code.
+- **One-click actions.** Consistent CTAs scroll directly to the creation form, while the footer and metadata now reference the Tasleema brand everywhere (package name, title, manifest, etc.).
 
 ---
 
-## 🚀 Live Demo
+## How Tasleema Works
 
-Try the application in action:
-- [Netlify Deploy - Report Generator](https://dapper-squirrel-0020a6.netlify.app)
-
----
-
-## 🛠️ Tech Stack
-
-<div align="center">
-  
-| Technology | Purpose |
-|------------|---------|
-| [React](https://reactjs.org/) | UI Components & State Management |
-| [TypeScript](https://www.typescriptlang.org/) | Type Safety & Development |
-| [Vite](https://vitejs.dev/) | Build Tool & Development Server |
-| [Tailwind CSS](https://tailwindcss.com/) | Styling & Responsive Design |
-| [Google Gemini API](https://ai.google.dev/) | AI-Powered Content Generation |
-| [ESM.sh](https://esm.sh/) | CDN for React Dependencies |
-
-</div>
+1. **Describe the report.** Provide author information, language, and the core topic.
+2. **Tune the tone.** Select length, cover format, and report style; use the AI refiner for clearer prompts.
+3. **Generate & preview.** Tasleema compiles the LaTeX source in the background and streams a PDF preview right in the browser.
+4. **Download what you need.** Grab the polished PDF or the editable `.tex` source without leaving the page.
 
 ---
 
-## 📋 Prerequisites
+## Tech Stack
 
-Before running this application, make sure you have:
-
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- A [Google Gemini API key](https://ai.google.dev/)
+| Layer | Details |
+|-------|---------|
+| UI | React 18 + TypeScript + Tailwind CSS |
+| Build | Vite 6 with ES modules |
+| AI | Google Gemini API for content + structure generation |
+| Preview | LaTeX-on-HTTP service for PDF compilation |
 
 ---
 
-## 🚀 Getting Started
-
-### 1. Clone the Repository
+## Getting Started
 
 ```bash
-git clone https://github.com/m0hamedabedd/Ai-latex-report-generator.git
-cd Ai-latex-report-generator
+git clone https://github.com/your-username/tasleema.git
+cd tasleema
+pnpm install   # or npm install / yarn
 ```
 
-### 2. Install Dependencies
+Create a `.env.local` file:
 
 ```bash
-npm install
-```
-
-### 3. Configure Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```bash
-touch .env.local
-```
-
-Add your Gemini API key to `.env.local`:
-
-```
 GEMINI_API_KEY=your_actual_gemini_api_key_here
 ```
 
-> **Important Security Note**: The `.env.local` file is included in `.gitignore` and will not be committed to the repository, protecting your API key.
+Run the dev server:
 
-### 4. Run the Application
-
-#### Development Mode
 ```bash
-npm run dev
+pnpm dev
 ```
 
-The application will be available at `http://localhost:3000`
+Build + preview production output:
 
-#### Production Mode
-1. Build the application:
-   ```bash
-   npm run build
-   ```
-
-2. Preview the production build:
-   ```bash
-   npm run preview
-   ```
-
----
-
-## 📦 Deployment
-
-### Netlify
-This application is optimized for deployment to Netlify:
-
-1. Build the application:
-   ```bash
-   npm run build
-   ```
-
-2. Deploy via Netlify CLI:
-   ```bash
-   npx netlify deploy
-   ```
-
-3. Or use drag-and-drop with the `dist` folder in the Netlify dashboard.
-
-### Other Platforms
-The application can also be deployed to any static hosting service:
-- GitHub Pages
-- Vercel
-- Firebase Hosting
-- AWS Amplify
-- Heroku (with buildpack)
-
----
-
-## 🔧 Configuration
-
-### Environment Variables
-- `GEMINI_API_KEY`: Your Google Gemini API key (required)
-
-### Build Configuration
-The application uses Vite for building and development. Configuration can be found in `vite.config.ts`.
-
----
-
-## 🏗️ Project Structure
-
-```
-Ai-latex-report-generator/
-├── components/          # React UI components
-├── contexts/            # React context providers
-├── public/              # Static assets
-├── .env.local           # Environment variables (private)
-├── .gitignore           # Git ignore rules
-├── App.tsx              # Main application component
-├── README.md            # Project documentation
-├── package.json         # Project dependencies and scripts
-├── vite.config.ts       # Vite configuration
-└── tsconfig.json        # TypeScript configuration
+```bash
+pnpm build
+pnpm preview
 ```
 
 ---
 
-## 📜 Available Scripts
+## Available Scripts
 
-In the project directory, you can run:
-
-- `npm run dev` - Start the development server with hot reload
-- `npm run build` - Build the application for production
-- `npm run preview` - Preview the production build locally
-- `npm test` - Run tests (if any exist)
+- `pnpm dev` – Vite dev server with hot reload.
+- `pnpm build` – Production build.
+- `pnpm preview` – Preview the production bundle locally.
+- `pnpm test` – Placeholder script (update when tests are added).
 
 ---
 
-## 🤝 Contributing
+## Configuration
 
-We welcome contributions! Here's how you can help:
-
-### Development Guidelines
-- Follow the existing code style
-- Write clear, descriptive commit messages
-- Document new features and components
-- Ensure all changes work across different browsers and devices
-
-### How to Contribute
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests if applicable
-5. Commit your changes (`git commit -m 'Add some amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+| Variable | Description |
+|----------|-------------|
+| `GEMINI_API_KEY` | Required. Tasleema uses this key to talk to the Gemini API. |
+| `VITE_TEX_COMPILE_ENDPOINT` | Optional override for the LaTeX compilation endpoint. Defaults to `https://latex.ytotech.com/builds/sync`. |
 
 ---
 
-## 🔐 Security
+## Project Structure
 
-- API keys are stored in environment variables and never committed to the repository
-- Input validation and sanitization implemented where appropriate
-- The `.env` and `.env.local` files are properly ignored by git
-- Secure handling of user data and API communications
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-## 🐛 Issues & Support
-
-If you encounter any issues or have feature requests:
-
-1. Check the [Issues](https://github.com/m0hamedabedd/Ai-latex-report-generator/issues) page
-2. If your issue doesn't already exist, create a [new issue](https://github.com/m0hamedabedd/Ai-latex-report-generator/issues/new)
-3. For quick questions, feel free to reach out via GitHub
-
-### Support Resources
-- GitHub Issues: Bug reports and feature requests
-- GitHub Discussions: General questions and discussions
-- Pull Requests: Code contributions welcome
+```
+tasleema/
+├── App.tsx                # Home layout + routing for generator studio
+├── components/            # UI building blocks (forms, preview, icons, settings)
+├── contexts/              # Language provider
+├── services/              # Gemini + PDF compilation helpers
+├── index.html             # Root document (now branded for Tasleema)
+├── i18n.ts                # English + Arabic copy
+├── package.json           # Scripts & dependencies
+└── README.md              # You are here
+```
 
 ---
 
-## 🙏 Acknowledgments
+## Deployment
 
-- Built with [React](https://reactjs.org/) and [TypeScript](https://www.typescriptlang.org/)
-- Powered by [Google's Gemini API](https://ai.google.dev/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Bundled with [Vite](https://vitejs.dev/)
-- Hosted on [Netlify](https://netlify.com/)
+Tasleema ships as a static site:
 
-This project started as an innovative way to combine AI technology with academic and professional document creation, making LaTeX more accessible to everyone.
+1. Build with `pnpm build` (output lands in `dist/`).
+2. Deploy the `dist` folder to Netlify, Vercel, GitHub Pages, or any static host.
+3. Provide the `GEMINI_API_KEY` (and optional compilation endpoint) as environment variables on your host.
 
 ---
 
-## 📞 Contact
+## Contributing
 
-Created by **m0hamedabed** - feel free to reach out!
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/amazing-idea`.
+3. Make your changes and run `pnpm tsc --noEmit`.
+4. Commit + push, then open a Pull Request.
+
+Bug reports and feature ideas are always welcome through GitHub Issues.
 
 ---
 
-<div align="center">
+## License
 
-**⭐ If you found this project helpful, please give it a star! ⭐**
+Released under the [MIT License](LICENSE).
 
-**Made with 💻 and 🤖 for the AI-empowered future**
+---
 
-</div>
+Have fun building with Tasleema! If the project helps you ship faster, please consider giving it a ⭐️.
