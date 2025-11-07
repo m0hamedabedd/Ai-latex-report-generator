@@ -1,9 +1,8 @@
 <div align="center">
-  <img width="1200" height="475" alt="AI LaTeX Report Maker Banner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+  <img width="1200" height="475" alt="AI LaTeX Report Maker Banner" src="https://i.postimg.cc/TP4bmjXP/Screenshot-2025-11-07-095822.png" />
   
   # AI LaTeX Report Maker
 
-  [![AI Studio App](https://img.shields.io/badge/AI%20Studio-View%20App-blue?logo=google&logoColor=white)](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
   [![Netlify Deploy](https://img.shields.io/badge/Netlify-Deploy-green?logo=netlify&logoColor=white)](https://dapper-squirrel-0020a6.netlify.app)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
@@ -62,7 +61,6 @@ AI LaTeX Report Maker is an innovative web application that leverages Google's G
 ## 🚀 Live Demo
 
 Try the application in action:
-- [AI Studio App](https://ai.studio/apps/drive/17lhZwnC8PE4Bed04VXIxUTxVet88hBqI)
 - [Netlify Deploy - Report Generator](https://dapper-squirrel-0020a6.netlify.app)
 
 ---
