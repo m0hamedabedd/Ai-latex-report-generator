@@ -25,6 +25,27 @@ Transform your ideas into professional LaTeX reports with AI assistance.
 
 AI LaTeX Report Maker is an innovative web application that leverages Google's Gemini AI to automatically generate professional LaTeX reports. Simply provide a topic or concept, and the AI creates a structured LaTeX document with customizable formatting, cover pages, and styles.
 
+## 🛠️ How It Works
+
+### 1. Input Your Topic
+- Enter a detailed description or topic for your report
+- The AI will analyze your input to understand the context and requirements
+
+### 2. Customize Your Report
+- **Style Selection**: Choose from Modern, Classic, Minimalist, or Academic styles
+- **Cover Page Options**: Select from Standard, Formal Report, or Full Page formats
+- **Language Preference**: Switch between English and Arabic for multilingual support
+
+### 3. AI-Powered Generation
+- The Google Gemini API processes your input and generates a professional LaTeX document
+- The AI structures the content with proper headings, subheadings, and formatting
+- Custom LaTeX commands and packages are applied based on your style selection
+
+### 4. Review and Export
+- Preview the generated LaTeX code directly in the application
+- Download as a PDF file or as a raw .tex file for further editing
+- All reports are generated serverlessly with high quality and consistency
+
 ### ✨ Key Features
 - 🤖 **AI-Powered Generation**: Create professional LaTeX reports with a single topic
 - 🎨 **Multiple Style Options**: Choose from Modern, Classic, Minimalist, or Academic styles
@@ -34,6 +55,7 @@ AI LaTeX Report Maker is an innovative web application that leverages Google's G
 - 📁 **PDF Compilation**: Option to download as PDF or raw .tex file
 - 📱 **Responsive Design**: Works seamlessly across all device sizes
 - ⚡ **Lightning Fast**: Optimized React application with Vite bundler
+- 🔐 **Secure**: API keys stored in environment variables, never exposed to client
 
 ---
 
